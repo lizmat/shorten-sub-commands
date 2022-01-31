@@ -1,6 +1,6 @@
 use Test;
 
-plan 6;
+plan 5;
 
 my $raku       := $*EXECUTABLE.absolute;
 my $frobnicate := $*PROGRAM.sibling("frobnicate").absolute;
@@ -16,6 +16,5 @@ test "bar", "barabas";
 test "baz", "bazzie";
 test "fnok", "'fnok' is not recognized as sub-command:\nKnown sub-commands: barabas bazzie foozle";
 test "ba", "'ba' is ambiguous, matches: barabas bazzie";
-test "", "Must specify a sub-commmand";
 
 # vim: expandtab shiftwidth=4
