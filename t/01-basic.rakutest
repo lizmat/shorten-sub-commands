@@ -1,0 +1,21 @@
+use Test;
+
+plan 6;
+
+my $raku       := $*EXECUTABLE.absolute;
+my $frobnicate := $*PROGRAM.sibling("frobnicate").absolute;
+
+my sub test($command, $expected) {
+    is (run $raku, $frobnicate, $command, :merge).out.slurp(:close).chomp,
+      $expected,
+      "does $command give $expected?";
+}
+
+test "foo", "foozle";
+test "bar", "barabas";
+test "baz", "bazzie";
+test "fnok", "'fnok' is not recognized as sub-command:\nKnown sub-commands: barabas bazzie foozle";
+test "ba", "'ba' is ambiguous, matches: barabas bazzie";
+test "", "Must specify a sub-commmand";
+
+# vim: expandtab shiftwidth=4
