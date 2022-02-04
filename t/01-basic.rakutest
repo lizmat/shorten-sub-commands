@@ -1,20 +1,24 @@
 use Test;
 
-plan 5;
+plan 7;
 
-my $raku       := $*EXECUTABLE.absolute;
-my $frobnicate := $*PROGRAM.sibling("frobnicate").absolute;
+my $raku        := $*EXECUTABLE.absolute;
+my $frobnicate  := $*PROGRAM.sibling("frobnicate").absolute;
+my $regurgitate := $*PROGRAM.sibling("regurgitate").absolute;
 
-my sub test($command, $expected) {
-    is (run $raku, $frobnicate, $command, :merge).out.slurp(:close).chomp,
+my sub test($script, $command, $expected) {
+    is (run $raku, '-I.', $script, $command, :merge).out.slurp(:close).chomp,
       $expected,
       "does $command give $expected?";
 }
 
-test "foo", "foozle";
-test "bar", "barabas";
-test "baz", "bazzie";
-test "fnok", "'fnok' is not recognized as sub-command:\nKnown sub-commands: barabas bazzie foozle";
-test "ba", "'ba' is ambiguous, matches: barabas bazzie";
+test $frobnicate, "foo", "foozle";
+test $frobnicate, "bar", "barabas";
+test $frobnicate, "baz", "bazzie";
+test $frobnicate, "fnok", "'fnok' is not recognized as sub-command:\nKnown sub-commands: barabas bazzie foozle";
+test $frobnicate, "ba", "'ba' is ambiguous, matches: barabas bazzie";
+
+test $regurgitate, "s", "'search()' recurses from 's'";
+test $regurgitate, "search", "'search()' recurses";
 
 # vim: expandtab shiftwidth=4

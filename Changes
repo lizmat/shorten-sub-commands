@@ -2,5 +2,9 @@ Revision history for shorten-sub-commands
 
 {{$NEXT}}
 
+0.0.2  2022-02-04T18:20:33+01:00
+    - Make sure recursive dispatch doesn't go into never never land
+    - Add funding info
+
 0.0.1  2022-01-31T18:25:22+01:00
     - Initial version

@@ -21,12 +21,24 @@ sub EXPORT(&target) {
         my @matches = @sub-commands.grep: -> $sub-command {
             $sub-command.starts-with($command)
         }
-        @matches
-          ?? @matches == 1
-            ?? target(@matches[0], |c)
-            !! meh("'$command' is ambiguous, matches: @matches[]")
-          !! meh("'$command' is not recognized as sub-command:
+        if @matches == 1 {
+            with $*RECURSIVE-SHORT-SUB-COMMAND -> $from {
+                my $params := c.raku.substr(1);  # lose the backslash
+                meh $command eq $from
+                  ?? "'$command$params' recurses"
+                  !! "'$command$params' recurses from '$from'";
+            }
+            else {
+                my $*RECURSIVE-SHORT-SUB-COMMAND := $command;
+                target(@matches[0], |c);
+            }
+        }
+        else {
+            @matches
+              ?? meh("'$command' is ambiguous, matches: @matches[]")
+              !! meh("'$command' is not recognized as sub-command:
 Known sub-commands: @sub-commands[]")
+        }
     }
 
     Map.new
@@ -68,6 +80,9 @@ When used B<after> all C<MAIN> candidates have been defined, it will add
 another candidate that will allow to shorten the command names to be as
 short as possible (e.g. just "foo" in the example above, or even just "f"
 as there is only one candidate that starts with "f".
+
+Special care has been taken to ensure that re-dispatch doesn't devolved into
+an infinite loop.
 
 =head1 AUTHOR
 

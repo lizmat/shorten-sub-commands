@@ -1,0 +1,2 @@
+multi sub MAIN("search", $bar) { dd }
+use shorten-sub-commands &MAIN;
