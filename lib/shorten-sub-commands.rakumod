@@ -1,4 +1,28 @@
-use as-cli-arguments:ver<0.0.1>:auth<zef:lizmat>;
+my sub stringify(str $_ --> Str:D) {
+    .contains(/ \s /) ?? "'$_'" !! $_.Str
+}
+
+my sub as-cli-arguments(
+  Capture:D  $c,
+  Bool:D    :$named-anywhere = %*SUB-MAIN-OPTS<named-anywhere> // False,
+--> Str:D) {
+
+    my str $positionals = $c.list.map(*.&stringify).join(" ");
+
+    my str $nameds = $c.hash.kv.map(-> $key, $value {
+        my str $name = stringify $key;
+        $value ~~ Bool
+          ?? $value
+            ?? "--$name"
+            !! "--/$name"
+          !! "--$name=&stringify($value)"
+    }).join(" ");
+
+    my str $space = $positionals && $nameds ?? " " !! "";
+    $named-anywhere
+      ?? "$positionals$space$nameds"
+      !! "$nameds$space$positionals"
+}
 
 my sub meh($message) { exit note $message }
 

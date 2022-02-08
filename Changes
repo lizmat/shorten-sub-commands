@@ -2,6 +2,9 @@ Revision history for shorten-sub-commands
 
 {{$NEXT}}
 
+0.0.4  2022-02-08T17:29:13+01:00
+    - Don't bother with dependency, just copy sub
+
 0.0.3  2022-02-08T15:00:18+01:00
     - Add depenendency on "as-cli-arguments"
     - Provide better feedback on recursion
