@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "as-cli-arguments:ver<0.0.1>:auth<zef:lizmat>"
   ],
   "description": "allow partial specification of sub-commands",
   "license": "Artistic-2.0",
@@ -18,8 +19,10 @@
   ],
   "source-url": "https://github.com/lizmat/shorten-sub-commands.git",
   "tags": [
+    "CLI",
+    "MAIN"
   ],
   "test-depends": [
   ],
-  "version": "0.0.2"
+  "version": "0.0.3"
 }

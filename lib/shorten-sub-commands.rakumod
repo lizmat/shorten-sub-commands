@@ -1,3 +1,5 @@
+use as-cli-arguments:ver<0.0.1>:auth<zef:lizmat>;
+
 my sub meh($message) { exit note $message }
 
 sub EXPORT(&target) {
@@ -23,10 +25,11 @@ sub EXPORT(&target) {
         }
         if @matches == 1 {
             with $*RECURSIVE-SHORT-SUB-COMMAND -> $from {
-                my $params := c.raku.substr(1);  # lose the backslash
+                my $params := as-cli-arguments c;
+                $params    := " $params" if $params;
                 meh $command eq $from
-                  ?? "'$command$params' recurses"
-                  !! "'$command$params' recurses from '$from'";
+                  ?? "'$from$params' recurses"
+                  !! "'$from$params' recurses into '$command'";
             }
             else {
                 my $*RECURSIVE-SHORT-SUB-COMMAND := $command;

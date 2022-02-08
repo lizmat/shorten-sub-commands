@@ -18,7 +18,7 @@ test $frobnicate, "baz", "bazzie";
 test $frobnicate, "fnok", "'fnok' is not recognized as sub-command:\nKnown sub-commands: barabas bazzie foozle";
 test $frobnicate, "ba", "'ba' is ambiguous, matches: barabas bazzie";
 
-test $regurgitate, "s", "'search()' recurses from 's'";
-test $regurgitate, "search", "'search()' recurses";
+test $regurgitate, "s", "'s' recurses into 'search'";
+test $regurgitate, "search", "'search' recurses";
 
 # vim: expandtab shiftwidth=4

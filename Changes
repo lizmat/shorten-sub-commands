@@ -2,6 +2,10 @@ Revision history for shorten-sub-commands
 
 {{$NEXT}}
 
+0.0.3  2022-02-08T15:00:18+01:00
+    - Add depenendency on "as-cli-arguments"
+    - Provide better feedback on recursion
+
 0.0.2  2022-02-04T18:20:33+01:00
     - Make sure recursive dispatch doesn't go into never never land
     - Add funding info
