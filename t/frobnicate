@@ -1,5 +1,3 @@
-use lib $*PROGRAM.parent.parent.absolute;
-
 multi sub MAIN("foozle")  { say "foozle"  }
 multi sub MAIN("barabas") { say "barabas" }
 multi sub MAIN("bazzie")  { say "bazzie"  }
