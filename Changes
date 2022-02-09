@@ -2,6 +2,10 @@ Revision history for shorten-sub-commands
 
 {{$NEXT}}
 
+0.0.5  2022-02-09T05:52:32+01:00
+    - Allow numeric subcommands, Wenzel P.P. Peppmeyer++ for the suggestion
+    - Re-introduce the "as-cli-arguments" dependency
+
 0.0.4  2022-02-08T17:29:13+01:00
     - Don't bother with dependency, just copy sub
 

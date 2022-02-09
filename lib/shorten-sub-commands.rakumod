@@ -1,28 +1,4 @@
-my sub stringify(str $_ --> Str:D) {
-    .contains(/ \s /) ?? "'$_'" !! $_.Str
-}
-
-my sub as-cli-arguments(
-  Capture:D  $c,
-  Bool:D    :$named-anywhere = %*SUB-MAIN-OPTS<named-anywhere> // False,
---> Str:D) {
-
-    my str $positionals = $c.list.map(*.&stringify).join(" ");
-
-    my str $nameds = $c.hash.kv.map(-> $key, $value {
-        my str $name = stringify $key;
-        $value ~~ Bool
-          ?? $value
-            ?? "--$name"
-            !! "--/$name"
-          !! "--$name=&stringify($value)"
-    }).join(" ");
-
-    my str $space = $positionals && $nameds ?? " " !! "";
-    $named-anywhere
-      ?? "$positionals$space$nameds"
-      !! "$nameds$space$positionals"
-}
+use as-cli-arguments:ver<0.0.2>:auth<zef:lizmat>;
 
 my sub meh($message) { exit note $message }
 
@@ -36,7 +12,7 @@ sub EXPORT(&target) {
             $sub-command.constraint_list.head
               if !$sub-command.name
               && !$sub-command.named
-              &&  $sub-command.type =:= Str
+              &&  $sub-command.type ~~ Str | Numeric
               &&  $sub-command.constraint_list == 1
         }
     }).sort.List;
@@ -106,7 +82,9 @@ to handle execution of that command).
 When used B<after> all C<MAIN> candidates have been defined, it will add
 another candidate that will allow to shorten the command names to be as
 short as possible (e.g. just "foo" in the example above, or even just "f"
-as there is only one candidate that starts with "f".
+as there is only one candidate that starts with "f".  Numeric subcommands
+are also supported, but they will be matched as strings (so C<4> on the
+command line will match C<42> in the signature).
 
 Special care has been taken to ensure that re-dispatch doesn't devolved into
 an infinite loop.

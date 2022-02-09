@@ -1,0 +1,3 @@
+multi sub MAIN("foo") { say "foo" }
+multi sub MAIN(42,  ) { say 42    }
+use shorten-sub-commands &MAIN;
