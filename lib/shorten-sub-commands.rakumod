@@ -86,7 +86,7 @@ as there is only one candidate that starts with "f".  Numeric subcommands
 are also supported, but they will be matched as strings (so C<4> on the
 command line will match C<42> in the signature).
 
-Special care has been taken to ensure that re-dispatch doesn't devolved into
+Special care has been taken to ensure that re-dispatch doesn't devolve into
 an infinite loop.
 
 =head1 AUTHOR
