@@ -2,6 +2,10 @@ Revision history for shorten-sub-commands
 
 {{$NEXT}}
 
+0.0.6  2022-08-25T10:10:48+02:00
+    - Bump dependency on as-cli-arguments
+    - Fix typo in pod
+
 0.0.5  2022-02-09T05:52:32+01:00
     - Allow numeric subcommands, Wenzel P.P. Peppmeyer++ for the suggestion
     - Re-introduce the "as-cli-arguments" dependency
